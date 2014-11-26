@@ -1,0 +1,36 @@
+COMMON: &COMMON
+
+ TEST_DATA: &TEST_DATA
+  <<: *COMMON
+  emails:
+    csm_user: tm-books-itops@blinkbox.com
+    csr_user: tm-books-test-csr@blinkbox.com
+
+  passwords:
+    csm_password: d41P8YETV7OjU^cufcu0
+    csr_password: za5xoR9eQuuF0jii
+
+
+  vouchers:
+    valid_voucher: 1111111122222222
+    already_used: VCCAMPA1REDEEMED
+
+
+ LIVE_DATA: &LIVE_DATA
+  <<: *COMMON
+
+
+ LOCALHOST:
+  <<: *LIVE_DATA
+
+ TEST:
+  <<: *TEST_DATA
+
+ DEV:
+  <<: *LIVE_DATA
+
+ QA:
+  <<: *LIVE_DATA
+
+ PRODUCTION:
+  <<: *LIVE_DATA

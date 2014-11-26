@@ -1,0 +1,4 @@
+LOCALHOST: https://localhost:8443
+TEST: https://admin.test.bbbtest1.com/#!/
+DEV: https://admin.dev.bbbtest1.com/#!/
+PRODUCTION: https://admin.blinkboxbooks.com/#!/
