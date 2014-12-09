@@ -54,7 +54,7 @@ module KnowsAboutConfig
     @_test_data[data_type.to_s][param]
   end
 
-  def test_list(data)
+ def test_list(data)
     initialise_test_data
     raise "Unable to find data_type [#{data}] in the test data" if @_test_data[data.to_s].nil?
     @_test_data[data.to_s]
@@ -84,7 +84,7 @@ end
 
 
 #======== Load environment specific test data ======
-TEST_CONFIG['SERVER'] ||= 'TEST'
+TEST_CONFIG['SERVER'] ||= 'LOCALHOST'
 initialise_test_data
 
 
@@ -99,10 +99,13 @@ require_and_log Dir[File.join(support_dir, '*.rb')]
 
 puts 'Loading page models...'
 require_and_log Dir[File.join(support_dir, 'page_models', '*.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbooks_section.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/sections', 'admin_blinkboxbooks_section.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/pages', 'admin_blinkboxbooks_page.rb')]
+
 require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
+
+
 
 
 # ======= Setup PATH env. variable =======

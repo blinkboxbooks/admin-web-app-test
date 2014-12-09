@@ -1,27 +1,51 @@
-COMMON: &COMMON
-
  TEST_DATA: &TEST_DATA
-  <<: *COMMON
   emails:
+    api_user: muz@blinkbox.com
     csm_user: tm-books-itops@blinkbox.com
     csr_user: tm-books-test-csr@blinkbox.com
+    ops_user: tm-books-test@blinkbox.com
+    mer_user: books-devint-merchant@blinkbox.com
+    ctm_user: tm-books-test-ctm@blinkbox.com
+    mkt_user: tm-books-test-mkt@blinkbox.com
 
   passwords:
+    api_password: abc123
     csm_password: d41P8YETV7OjU^cufcu0
     csr_password: za5xoR9eQuuF0jii
-
+    ops_password: Q3opWxoA
+    mer_password: YIeU6SiZxv
+    ctm_password: yeiZ4ahzukeNg7ku
+    mkt_password: go8Gee7FVae1XuLe
 
   vouchers:
     valid_voucher: 1111111122222222
     already_used: VCCAMPA1REDEEMED
 
-
  LIVE_DATA: &LIVE_DATA
-  <<: *COMMON
+  emails:
+    api_user:
+    csm_user:
+    csr_user:
+    ops_user:
+    mer_user:
+    ctm_user:
+    mkt_user:
 
+  passwords:
+    api_password:
+    csm_password:
+    csr_password:
+    ops_password:
+    mer_password:
+    ctm_password:
+    mkt_password:
+
+  vouchers:
+    valid_voucher:
+    already_used:
 
  LOCALHOST:
-  <<: *LIVE_DATA
+  <<: *TEST_DATA
 
  TEST:
   <<: *TEST_DATA

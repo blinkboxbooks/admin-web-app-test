@@ -85,6 +85,18 @@ module BlinkboxWebUtilities
     expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
   end
 
+  def open_windows
+    page.driver.browser.window_handles
+  end
+
+  def logged_in_session?
+    current_page.header.logged_in?
+  end
+
+  def log_out_current_session
+    current_page.header.log_out_button.click
+  end
+
 end
 
 World(WebUtilities)
