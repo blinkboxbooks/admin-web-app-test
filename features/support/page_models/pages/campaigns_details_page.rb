@@ -96,27 +96,8 @@ module PageModels
       end
     end
 
-    def check_date(date, value)
-      wait_for_table
-      table.rows.select do |row|
-        if table_is_empty? row.columns[0]
-          cell= which_date_is(date, row)
-          expect(cell).to eval("to_be_in_the_#{value}")
-        end
-      end
-    end
-
-    def which_date_is (date, row)
-      if date == 'start date'
-        cell = row.columns[3].text
-      else
-        cell = row.columns[4].text
-      end
-      cell
-    end
-
     def table_is_empty? cell
-      !! cell =~ /No data available in table/
+      ! (cell.text =~ /No data available in table/)
     end
 
 end

@@ -7,6 +7,7 @@ Feature: Viewing all campaigns
     When I select Campaigns from the main menu
     Then I should be on Campaigns Details page
     And I should select All option to display all entries
+    And The attributes of campaigns in the header of table are shown
 
   @excluded
   Scenario: Viewing all details of campaign
@@ -17,8 +18,7 @@ Feature: Viewing all campaigns
   Scenario: Viewing all active campaigns
     When I select Active button in filter bar
     Then all campaigns displayed should be enabled
-    And  each campaign start date is in the past
-    And  each campaign end date is in the future
+    And  each campaign start date and end date is in the past and future respectively
 
   @AP-42
   Scenario: Viewing all pending campaigns

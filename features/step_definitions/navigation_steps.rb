@@ -16,11 +16,19 @@ Then(/^all campaigns displayed should be (.*?)$/) do |status|
   campaigns_details_page.check_enabled_status(status)
 end
 
+And(/^each campaign start date and end date is in the (.*?) and (.*?) respectively$/) do | value1, value2|
+  check_start_date_and_end_date( value1, value2)
+end
+
 And(/^each campaign (.*?) is in the (.*?)$/) do |date, dateBelongsTo|
-  campaigns_details_page.check_date(date, dateBelongsTo)
+  check_date(date, dateBelongsTo)
 end
 
 
 And(/^I should select (.*?) option to display all entries$/) do |num|
   campaigns_details_page.display_entries(num)
+end
+
+And(/^The attributes of campaigns in the header of table are shown$/) do
+
 end
