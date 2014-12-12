@@ -28,8 +28,8 @@ module AssertNavigation
 
   def check_date(date, value)
     count=0
-    campaigns_details_page.wait_for_table
-    campaigns_details_page.table.rows.select do |row|
+    campaigns_page.wait_for_table
+    campaigns_page.table.rows.select do |row|
       if !(row.columns[0].text =~ /No data available in table/)
         cell= which_date_is(date, row)
         next unless !cell.empty?
@@ -41,8 +41,8 @@ module AssertNavigation
 
   def check_start_date_and_end_date( value1, value2)
     count=0
-    campaigns_details_page.wait_for_table
-    campaigns_details_page.table.rows.select do |row|
+    campaigns_page.wait_for_table
+    campaigns_page.table.rows.select do |row|
       if !(row.columns[0].text =~ /No data available in table/)
         start_date=row.columns[3].text
         expect(DateTime.parse  start_date).to eval("be_in_the_#{value1}")
@@ -54,12 +54,28 @@ module AssertNavigation
     end
   end
 
-  # def check_table_header_values
-  #   campaigns_details_page.wait_for_table
-  #   campaigns_details_page.table.headers.select do |column|
-  #     expect(%w{"ID "})
-  #   end
-  # end
+  def check_table_header_values
+    campaigns_page.wait_for_table
+    header_array=["ID", "Name", "Description","Start Date", "End Date", "Creation Date","Enabled"]
+    campaigns_page.table.headers.each do |row|
+      row.headerColumns.each { |column|
+        # puts "#{column.text}"
+        expect(header_array).to be_in_header(/#{column.text}/i)
+      }
+    end
+  end
+
+  def check_test
+    campaigns_page.wait_for_table
+    actual_headers = campaigns_page.table.headers[0].headerColumns.collect { |i| i.text }
+    expect(["ID", "Name", "Description","Start Date", "End Date", "Creation Date","Enabled"]).to match_array(actual_headers)
+  end
+
+  def check_number_of_entries_all_filter
+    campaigns_page.wait_for_table
+    actual_number_of_entries=campaigns_page.number_of_entries_displayed
+    expect(campaigns_page.table.rows.count).to eq(actual_number_of_entries)
+  end
 
 end
 World(AssertNavigation)

@@ -35,12 +35,14 @@ module PageModels
     element :page_title, 'h1 a'
     element :welcome_message, '.user span'
     element :login, '.user button'
-    element :log_out_button, '.user span button'
+    element :log_out_button, '[data-test="logout-button"]'
+            # '.user span button'
     section :menu, MainMenu, 'navmenu ul'
 
     def user_role_displayed
+      # welcome_message.text.scan(/.+\((\w+)\)/)[0][0]
+      wait_for_welcome_message
       welcome_message.text.match(/.+\((\w+)\)/)[1]
-      #welcome_message.text.match(/[a-zA-Z\- ]+ \((\w+)\)/)[1]
     end
 
     def logged_in?

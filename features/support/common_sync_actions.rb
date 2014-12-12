@@ -67,6 +67,14 @@ module WaitSteps
     end
   end
 
+  #Ex. expect(array).to include(item)
+  matcher :be_in_header do |element|
+    supports_block_expectations
+    match do |array|
+      array.find {|str| str =~ element }
+    end
+  end
+
   #made it up myself, blame @aliaksandr
   def wait_until(timeout=Capybara.default_wait_time)
     require 'timeout'

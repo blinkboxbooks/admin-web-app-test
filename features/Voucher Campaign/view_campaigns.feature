@@ -5,14 +5,14 @@ Feature: Viewing all campaigns
   Background:
     Given I am logged in as a CSM user
     When I select Campaigns from the main menu
-    Then I should be on Campaigns Details page
+    Then I should be on Campaigns page
     And I should select All option to display all entries
     And The attributes of campaigns in the header of table are shown
 
-  @excluded
-  Scenario: Viewing all details of campaign
-    When I select a campaign to view details
-    And details of above campaign are displayed
+  @AP-42
+  Scenario: Viewing all campaigns
+    When I select All button in filter bar
+    Then  the number of campaign entries is equal with the number displayed
 
   @AP-42
   Scenario: Viewing all active campaigns
@@ -36,5 +36,8 @@ Feature: Viewing all campaigns
     When I select Disabled button in filter bar
     Then all campaigns displayed should be disabled
 
-
+  @AP-42
+  Scenario: Viewing all details of campaign
+    When I select a campaign to view details
+    Then I should be on Campaign Details page
 

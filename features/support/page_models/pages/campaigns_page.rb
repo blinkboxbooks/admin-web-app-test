@@ -7,11 +7,7 @@ module PageModels
 
   class HeaderColumn < PageModels::AdminBlinkboxbooksSection
 
-    elements :header, 'th'
-
-    def name_of_header
-      header.text
-    end
+    elements :headerColumns, 'th'
 
   end
 
@@ -19,6 +15,10 @@ module PageModels
 
     sections :headers, HeaderColumn, 'thead tr'
     sections :rows, TableRow, 'tbody tr'
+
+    def random_campaign
+      rows.sample
+    end
 
   end
 
@@ -54,13 +54,20 @@ module PageModels
 
   end
 
-  class CampaignsDetailsPage < PageModels::AdminBlinkboxbooksPage
+  class CampaignsPage < PageModels::AdminBlinkboxbooksPage
     set_url '#!/campaigns/'
     set_url_matcher /campaigns/
 
    sections :campaigns_filters, Filter, '#campaigns-filters label'
    section :table, Table, '#campaigns-table'
    section :display_entries_dropdown, DisplayEntriesDropdown, '#campaigns-table_length'
+   element :number_of_entries_element, '#campaigns-table_info'
+
+    def number_of_entries_displayed
+      wait_for_number_of_entries_element
+      number=number_of_entries_element.text.scan(/\d+/)[2].to_i
+      number
+    end
 
     def selected_filter
       campaigns_filters.find { |filter| filter.selected? }
@@ -72,6 +79,11 @@ module PageModels
         filter.title.downcase == filter_name.downcase
       end
 
+    end
+    def select_random_campaign
+      sample=table.random_campaign
+      raise 'There are no campaigns available in table' if sample.nil?
+      sample.columns[0].click
     end
 
     def filter_based_on(filter_name)
@@ -101,5 +113,5 @@ module PageModels
     end
 
 end
-  register_model_caller_method(CampaignsDetailsPage)
+  register_model_caller_method(CampaignsPage)
 end
