@@ -83,7 +83,9 @@ module PageModels
     def select_random_campaign
       sample=table.random_campaign
       raise 'There are no campaigns available in table' if sample.nil?
+      id=sample.columns[0].text
       sample.columns[0].click
+      id
     end
 
     def filter_based_on(filter_name)

@@ -1,5 +1,7 @@
 # encoding: utf-8
+module Utilities
 
+end
 module WebUtilities
 
   def cookie_manager
@@ -98,6 +100,6 @@ module BlinkboxWebUtilities
   end
 
 end
-
+World(Utilities)
 World(WebUtilities)
 World(BlinkboxWebUtilities)

@@ -35,9 +35,17 @@ And(/^The attributes of campaigns in the header of table are shown$/) do
 end
 
  When(/^I select a campaign to view details$/)do
-  campaigns_page.select_random_campaign
+  @id=campaigns_page.select_random_campaign
  end
+
+And(/^the url of the page contains the id of the campaign selected$/) do
+  expect(current_url).to include(@id)
+end
 
 Then(/^the number of campaign entries is equal with the number displayed$/) do
    check_number_of_entries_all_filter
+end
+
+And(/^details of above campaign are displayed$/) do
+  expect(!campaign_details_page.list_is_empty).to be_truthy
 end
