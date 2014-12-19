@@ -49,3 +49,16 @@ end
 And(/^details of above campaign are displayed$/) do
   expect(!campaign_details_page.list_is_empty).to be_truthy
 end
+
+
+And(/^I am on Campaigns page$/) do
+ campaigns_page.load unless campaigns_page.displayed?
+end
+
+Given /^I (?:am|have) signed in$/ do
+  sign_in("CSM") # if !logged_in_session?
+end
+
+When(/^I click on create campaign to create new campaign$/) do
+  campaigns_page.new_campaign_button.click
+end

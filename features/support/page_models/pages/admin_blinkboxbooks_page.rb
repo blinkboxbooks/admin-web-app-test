@@ -51,8 +51,6 @@ module PageModels
 
   end
 
-
-
   class AdminBlinkboxbooksPage < SitePrism::Page
     include WebUtilities
     include WaitSteps

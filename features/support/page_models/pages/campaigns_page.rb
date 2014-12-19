@@ -58,10 +58,11 @@ module PageModels
     set_url '#!/campaigns/'
     set_url_matcher /campaigns/
 
-   sections :campaigns_filters, Filter, '#campaigns-filters label'
-   section :table, Table, '#campaigns-table'
-   section :display_entries_dropdown, DisplayEntriesDropdown, '#campaigns-table_length'
-   element :number_of_entries_element, '#campaigns-table_info'
+    sections :campaigns_filters, Filter, '#campaigns-filters label'
+    section :table, Table, '#campaigns-table'
+    section :display_entries_dropdown, DisplayEntriesDropdown, '#campaigns-table_length'
+    element :number_of_entries_element, '#campaigns-table_info'
+    element :new_campaign_button,'#new-campaign-button'
 
     def number_of_entries_displayed
       wait_for_number_of_entries_element

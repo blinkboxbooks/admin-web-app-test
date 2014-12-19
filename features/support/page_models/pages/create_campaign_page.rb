@@ -7,7 +7,7 @@ module PageModels
   end
 
   class DateDetails < PageModels::AdminBlinkboxbooksSection
-    element :textfield, 'input'
+    element :textfield, 'input[name^=campaign]'
     element :label, '[for^=campaign]'
     element :error_message, '.error-bubble'
     element :datetimepicker, '.dropdown-menu datetimepicker'
@@ -48,6 +48,10 @@ module PageModels
     element :confirmation_redemption_limit, '[data-test="campaign-redemption-limit"]'
     element :yes_button, '.ngdialog-button ngdialog-button-primary'
     element :no_button, '.ngdialog-button ngdialog-button-secondary'
+
+    def list_of_elements
+      #[confirmation_name.text,confirmation_description.text,confirmation_start_date.text,confirmation]
+    end
   end
 
   class CreateCampaignPage < PageModels::AdminBlinkboxbooksPage
@@ -68,8 +72,11 @@ module PageModels
       campaign_description.textfield.set description
     end
 
-    def fill_in_dates_for_campaign(start_date, end_date='')
+    def set_start_date_for_campaign(start_date)
       campaign_start_date.textfield.set start_date
+    end
+
+    def set_end_date_for_campaign(end_date='')
       campaign_end_date.textfield.set end_date if !campaign_start_date.ongoing_is_enable?
     end
 
@@ -87,7 +94,11 @@ module PageModels
      redemption_limit.textfield.set limit if !redemption_limit.unlimited_is_enabled?
     end
 
-    def has_error_with_dates
+    def submit_form
+     submit_button.click
+    end
+
+    def has_error_with_dates?
       campaign_start_date.has_error_message? ||campaign_end_date.has_error_message?
     end
 
@@ -95,10 +106,10 @@ module PageModels
       campaign_name.has_error_message? || campaign_description.has_error_message? || campagign_credit.has_error_empty_field?
     end
 
-    def has_error_with_credit
+    def has_error_with_credit?
       campaign_credit.has_error_min_number? || campaign_credit.has_error_credit_digit?
     end
 
   end
-  register_model_caller_method(CampaignDetailsPage)
+  register_model_caller_method(CreateCampaignPage)
 end

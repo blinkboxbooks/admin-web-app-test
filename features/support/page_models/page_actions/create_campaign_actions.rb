@@ -17,6 +17,8 @@ module PageModels
       page.execute_script("$('##{id}').removeAttr('readonly')")
       fill_in name, :with => date
     end
+
+
   end
 end
 World(PageModels::CreateCampaignActions)
