@@ -40,17 +40,24 @@ module PageModels
 
   end
   class ConfirmationPopup < PageModels::AdminBlinkboxbooksSection
-    element :confirmation_name,  '[data-test="campaign-name"]'
-    element :confirmation_description,'[data-test="campaign-description"]'
-    element :confirmation_start_date, '[data-test="campaign-start-date"]'
-    element :confirmation_end_date, '[data-test="campaign-end-date"]'
-    element :confirmation_credit, '[data-test="campaign-credit"]'
-    element :confirmation_redemption_limit, '[data-test="campaign-redemption-limit"]'
-    element :yes_button, '.ngdialog-button ngdialog-button-primary'
-    element :no_button, '.ngdialog-button ngdialog-button-secondary'
+
+    elements :list, 'dd'
+    #
+    # element :confirmation_name,  '[data-test="campaign-name"]'
+    # element :confirmation_description,'[data-test="campaign-description"]'
+    # element :confirmation_start_date, '[data-test="campaign-start-date"]'
+    # element :confirmation_end_date, '[data-test="campaign-end-date"]'
+    # element :confirmation_credit, '[data-test="campaign-credit"]'
+    # element :confirmation_redemption_limit, '[data-test="campaign-redemption-limit"]'
+    element :yes_button, '[data-test="dialog-yes-button"]'
+    element :no_button, '[data-test="dialog-no-button"]'
 
     def list_of_elements
-      #[confirmation_name.text,confirmation_description.text,confirmation_start_date.text,confirmation]
+      list.collect{|elem| elem.text}
+      #puts "#{list[0].text} let's seeee"
+    end
+    def confirm_campaign
+      yes_button.click
     end
   end
 
@@ -65,7 +72,7 @@ module PageModels
     section :campaign_credit, CreditTextSection, '[data-test="campaign-credit-group"]'
     section :redemption_limit, CheckBoxEnabled, '[data-test="campaign-redemption-group"]'
     element :submit_button, '#campaign-submit'
-    section :confirmation_popup,ConfirmationPopup, '.ngdialog-content'
+    section :confirmation_popup,ConfirmationPopup, '[data-test="confirm-dialog"]'
 
     def fill_in_campaign_details(name, description)
       campaign_name.textfield.set name

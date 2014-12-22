@@ -18,7 +18,7 @@ Feature: Create Campaign
     And all details displayed in popup window is the same as th details in form
     And I click yes in confirmation popup
     Then I see the details of the new campaign in the campaign details page
-    And the newly created campaign should be on active campaigns on campaigns page
+  #  And the newly created campaign should be on active campaigns on campaigns page
 
   Scenario: Fill the details of campaign form with an end date and a specified number of vouchers
     When I enter campaign details

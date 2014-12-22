@@ -18,6 +18,13 @@ module PageModels
       fill_in name, :with => date
     end
 
+    def create_campaign_list_of_elements(name,description,credit_amount,redemption_limit,start_date,end_date)
+      create_campaign_page.redemption_limit.unlimited_is_enable? ? limit='Unlimited': limit=redemption_limit
+      create_campaign_page.campaign_start_date.ongoing_is_enable? ? end_date='Ongoing': end_date=end_date
+
+      array=[name, description,"Credit Campaign", credit_amount,limit,'Yes',start_date, end_date]
+      array
+    end
 
   end
 end
