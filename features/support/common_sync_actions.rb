@@ -55,7 +55,7 @@ module WaitSteps
   matcher :be_in_the_past do
     supports_block_expectations
     match do |a_date|
-      a_date < Time.now
+      a_date <= Time.now
     end
   end
 

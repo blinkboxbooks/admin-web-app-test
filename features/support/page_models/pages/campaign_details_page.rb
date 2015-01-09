@@ -20,6 +20,10 @@ module PageModels
       campaign_name_element.text.empty? || campaign_description_element.text.empty?  || campaign_start_date.text.empty? || campaign_status.text.empty? || voucher_credit.text.empty?
     end
 
+    def list_of_elements
+      #[name, description,"Credit Campaign", credit_amount,limit,'Yes',start_date, end_date]
+      [campaign_name_element,campaign_description_element, campaign_type, voucher_credit, redemption_limit, campaign_status, campaing_start_date, campaign_end_date]
+    end
   end
 
   class CampaignDetailsPage < PageModels::AdminBlinkboxbooksPage
@@ -31,6 +35,11 @@ module PageModels
     def list_is_empty
       wait_for_campaign_details_list
       campaign_details_list.mandatory_fields_empty?
+    end
+
+    def list_is_full
+      wait_for_campaign_details_list
+      !campaign_details_list.mandatory_fields_empty?
     end
 
   end

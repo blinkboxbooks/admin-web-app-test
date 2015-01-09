@@ -5,14 +5,38 @@ When /^I enter campaign details$/ do
  create_campaign_page.fill_in_campaign_details(@name,@description)
 end
 
-And(/^I set the campaign to start from today$/) do
-  @start_date=Time.now.strftime('%a %b %d %H:%M:%S %Z %Y')
+And(/^I set the campaign to start from (.*?)$/) do |date|
+  if date == 'today'
+    @start_date = format_date_to_utc Time.now
+  else
+    @start_date = format_date_to_utc tomorrow_date
+  end
+  expect(create_campaign_page.is_start_date_popup_visible).to be_truthy
   create_campaign_page.set_start_date_for_campaign @start_date
+end
+
+And(/^I un-check the (.*?) checkbox$/)do |type|
+  if(type == 'ongoing')
+    create_campaign_page.campaign_start_date.ongoing_checkbox.set false if create_campaign_page.campaign_start_date.ongoing_is_enable?
+  else
+    create_campaign_page.redemption_limit.checkbox.set false if create_campaign_page.redemption_limit.unlimited_is_enable?
+  end
+end
+
+And(/^I set an end date to campaign$/)do
+  @end_date=generate_random_future_date
+  create_campaign_page.set_end_date_for_campaign @end_date
+  sleep(5)
 end
 
 And(/^I choose a credit amount for each voucher$/) do
   @credit=rand(1..10)
   create_campaign_page.fill_in_credit(@credit)
+end
+
+And(/^I fill a redemption limit$/) do
+  @redemption_limit=rand(100..200)
+  create_campaign_page.set_redemption_limit(@redemption_limit)
 end
 
 And(/^I submit campaign details by clicking Create Campaign button$/) do
@@ -33,5 +57,15 @@ And(/^I click yes in confirmation popup$/) do
 end
 
 Then(/^I see the details of the new campaign in the campaign details page$/) do
-  expect(!campaign_details_page.list_is_empty).to be_truthy
+  assert_page('Campaign Details')
+  expect(campaign_details_page.list_is_full).to be_truthy
+  @creation_id=campaign_details_page.campaign_details_list.campaign_ID.text
+end
+
+And(/^the newly created campaign should be on (.*?) campaigns on campaigns page$/) do |filter|
+  campaigns_page.load
+  campaigns_page.filter_based_on(filter)
+  campaigns_page.display_entries('All')
+  campaigns_page_id=campaigns_page.table.rows.last.columns[0].text
+  expect(@creation_id).to eq(campaigns_page_id)
 end

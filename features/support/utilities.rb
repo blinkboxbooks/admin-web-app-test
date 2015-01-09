@@ -1,5 +1,23 @@
 # encoding: utf-8
 module Utilities
+# generate random date values for a specified period
+  def generate_random_date from =Time.now, to = Time.now
+    random_time=Time.at(from + rand * (to.to_f - from.to_f))
+    #Formats time to UTC date.
+    random_time.strftime('%a %b %d %H:%M:%S %Z %Y')
+  end
+
+  def generate_random_future_date
+    #the secs in a year 3.15569e7
+    Time.new(Time.now+rand(3.15569e7)).strftime('%a %b %d %H:%M:%S %Z %Y')
+  end
+
+  def tomorrow_date
+    (Time.now + 24*60*60)
+  end
+  def format_date_to_utc date
+    date.strftime('%a %b %d %H:%M:%S %Z %Y')
+  end
 
 end
 module WebUtilities

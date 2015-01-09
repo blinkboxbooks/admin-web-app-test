@@ -10,7 +10,7 @@ module PageModels
     element :textfield, 'input[name^=campaign]'
     element :label, '[for^=campaign]'
     element :error_message, '.error-bubble'
-    element :datetimepicker, '.dropdown-menu datetimepicker'
+    element :datetimepicker, '.datetimepicker'
     #element :table_pop_up, '.datetimepicker table'
     element :ongoing_checkbox, '#campaign-ongoing'
 
@@ -84,12 +84,12 @@ module PageModels
     end
 
     def set_end_date_for_campaign(end_date='')
-      campaign_end_date.textfield.set end_date if !campaign_start_date.ongoing_is_enable?
+      campaign_end_date.textfield.set end_date #if !campaign_start_date.ongoing_is_enable?
     end
 
     def is_start_date_popup_visible
       campaign_start_date.textfield.click
-      expect(campaign_start_date.datetimepicker).to be_visible
+      campaign_start_date.datetimepicker.visible?
       #execute_script("$('#campaign-start-timepicker').datepicker('setDate', '01/01/2015')")
     end
 
@@ -98,7 +98,7 @@ module PageModels
     end
 
     def set_redemption_limit(limit='')
-     redemption_limit.textfield.set limit if !redemption_limit.unlimited_is_enabled?
+     redemption_limit.textfield.set limit #if !redemption_limit.unlimited_is_enabled?
     end
 
     def submit_form
