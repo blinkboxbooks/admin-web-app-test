@@ -8,7 +8,6 @@ Feature: Create Campaign
     When I click on create campaign to create new campaign
     Then I should be on Create Campaign page
 
-  @test1
   Scenario: Fill the details of campaign form without an end date and unlimited number of vouchers
     When I enter campaign details
     And I set the campaign to start from today
@@ -20,7 +19,6 @@ Feature: Create Campaign
     Then I see the details of the new campaign in the campaign details page
     And the newly created campaign should be on active campaigns on campaigns page
 
-  @test2
   Scenario: Fill the details of campaign form with an end date and a specified number of vouchers
     When I enter campaign details
     And I set the campaign to start from tomorrow

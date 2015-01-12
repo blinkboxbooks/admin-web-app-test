@@ -24,9 +24,8 @@ And(/^I un-check the (.*?) checkbox$/)do |type|
 end
 
 And(/^I set an end date to campaign$/)do
-  @end_date=generate_random_future_date
+  @end_date = generate_random_future_date
   create_campaign_page.set_end_date_for_campaign @end_date
-  sleep(5)
 end
 
 And(/^I choose a credit amount for each voucher$/) do
@@ -49,7 +48,7 @@ end
 
 And(/^all details displayed in popup window is the same as th details in form$/) do
   popup_details= create_campaign_page.confirmation_popup.list_of_elements
-  expect(create_campaign_list_of_elements(@name,@description,@credit.to_s,'',@start_date,'')).to match_array(popup_details)
+   expect(create_campaign_list_of_elements(@name,@description,@credit.to_s,@redemption_limit,@start_date,@end_date)).to match_array(popup_details)
 end
 
 And(/^I click yes in confirmation popup$/) do

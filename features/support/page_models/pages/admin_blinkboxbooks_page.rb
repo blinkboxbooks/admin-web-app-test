@@ -21,7 +21,7 @@ module PageModels
 
     def select(tab_name)
       wait_until {all_there?}
-      wait_until {tabs[0].selected?}
+     # wait_until {tabs[0].selected?}
       tab = tabs.find {|tab| tab.title.downcase == tab_name.downcase}
       if tab.nil?
         fail "#{tab_name} is not found."

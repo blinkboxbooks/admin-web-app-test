@@ -9,6 +9,7 @@ Then /^I should be on (.*?) page$/ do |page_name|
 end
 
 When(/^I select (.*?) button in filter bar$/) do |filter|
+  select_campaigns_all_entries
   campaigns_page.filter_based_on(filter)
 end
 
@@ -16,7 +17,7 @@ Then(/^all campaigns displayed should be (.*?)$/) do |status|
   campaigns_page.check_enabled_status(status)
 end
 
-And(/^each campaign start date and end date is in the (.*?) and (.*?) respectively$/) do | value1, value2|
+And(/^each campaign start date and end date is in the (.*?) and (.*?) respectively$/) do |value1, value2|
   check_start_date_and_end_date( value1, value2)
 end
 
@@ -35,6 +36,7 @@ And(/^The attributes of campaigns in the header of table are shown$/) do
 end
 
  When(/^I select a campaign to view details$/)do
+   select_campaigns_all_entries
   @id=campaigns_page.select_random_campaign
  end
 
