@@ -65,6 +65,7 @@ module PageModels
     set_url '/#!/campaign/new'
     set_url_matcher /campaign\/new/
 
+    element :title, '#main h3'
     section :campaign_name, TextfieldDetails, '[data-test="campaign-name-group"]'
     section :campaign_description,TextfieldDetails, '[data-test="campaign-description-group"]'
     section :campaign_start_date, DateDetails, '[data-test="campaign-start-group"]'
@@ -89,8 +90,18 @@ module PageModels
 
     def is_start_date_popup_visible
       campaign_start_date.textfield.click
+      campaign_start_date.wait_for_datetimepicker
       campaign_start_date.datetimepicker.visible?
       #execute_script("$('#campaign-start-timepicker').datepicker('setDate', '01/01/2015')")
+    end
+
+    def close_calendar
+      title.click
+    end
+
+    def is_end_date_popup_visible
+      campaign_end_date.textfield.click
+      campaign_end_date.datetimepicker.visible?
     end
 
     def fill_in_credit(voucher_credit)

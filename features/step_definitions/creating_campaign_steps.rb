@@ -6,12 +6,13 @@ When /^I enter campaign details$/ do
 end
 
 And(/^I set the campaign to start from (.*?)$/) do |date|
+  expect(create_campaign_page.is_start_date_popup_visible).to be_truthy
+  create_campaign_page.close_calendar
   if date == 'today'
     @start_date = format_date_to_utc Time.now
   else
     @start_date = format_date_to_utc tomorrow_date
   end
-  expect(create_campaign_page.is_start_date_popup_visible).to be_truthy
   create_campaign_page.set_start_date_for_campaign @start_date
 end
 
@@ -24,6 +25,8 @@ And(/^I un-check the (.*?) checkbox$/)do |type|
 end
 
 And(/^I set an end date to campaign$/)do
+  expect(create_campaign_page.is_end_date_popup_visible).to be_truthy
+  create_campaign_page.close_calendar
   @end_date = generate_random_future_date
   create_campaign_page.set_end_date_for_campaign @end_date
 end
