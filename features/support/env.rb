@@ -54,7 +54,7 @@ module KnowsAboutConfig
     @_test_data[data_type.to_s][param]
   end
 
-  def test_list(data)
+ def test_list(data)
     initialise_test_data
     raise "Unable to find data_type [#{data}] in the test data" if @_test_data[data.to_s].nil?
     @_test_data[data.to_s]
@@ -99,11 +99,11 @@ require_and_log Dir[File.join(support_dir, '*.rb')]
 
 puts 'Loading page models...'
 require_and_log Dir[File.join(support_dir, 'page_models', '*.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/sections', 'blinkboxbooks_section.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/pages', 'blinkboxbooks_page.rb')]
-require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/sections', 'admin_blinkboxbooks_section.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/pages', 'admin_blinkboxbooks_page.rb')]
 
+require_and_log Dir[File.join(support_dir, 'page_models/pages', '*.rb')]
+require_and_log Dir[File.join(support_dir, 'page_models/sections', '*.rb')]
 
 # ======= Setup PATH env. variable =======
 puts "RUBY_PLATFORM: #{RUBY_PLATFORM}"
@@ -120,12 +120,13 @@ case Platform::OS
       current_os = 'unix'
     end
   else
-    raise "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
+    fail "Current OS is not supported by ChromeDriver and/or BrowserStack Local (OS: #{Platform::OS}, Implementation: #{Platform::IMPL}):\r\n- http://code.google.com/p/chromium/downloads/list\r\n- http://www.browserstack.com/local-testing#command-line"
 end
 
 chromedriver_path = File.expand_path File.join(path_to_root, 'lib', 'chromedrv', current_os)
+browserstack_path = File.expand_path File.join(path_to_root, 'lib', 'browserstacklocal', current_os)
 
-ENV["PATH"] = "#{chromedriver_path}#{separator}#{ENV["PATH"]}"
+ENV["PATH"] = "#{browserstack_path}#{separator}#{chromedriver_path}#{separator}#{ENV["PATH"]}"
 
 
 # ======= Setup target environment =======

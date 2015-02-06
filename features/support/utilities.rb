@@ -1,5 +1,25 @@
 # encoding: utf-8
+module Utilities
+# generate random date values for a specified period
+  def generate_random_date from =Time.now, to = Time.now
+    random_time=Time.at(from + rand * (to.to_f - from.to_f))
+    #Formats time to UTC date.
+    random_time.strftime('%a %b %d %H:%M:%S %Z %Y')
+  end
 
+  def generate_random_future_date
+    #the secs in a year 3.15569e7
+    (Time.now+rand(3.15569e7)).strftime('%a %b %d %Y %H:%M:%S')
+  end
+
+  def tomorrow_date
+    (Time.now + 24*60*60)
+  end
+  def format_date_to_utc date
+    date.strftime('%a %b %d %Y %H:%M:%S')
+  end
+
+end
 module WebUtilities
 
   def cookie_manager
@@ -85,7 +105,19 @@ module BlinkboxWebUtilities
     expect(browser_windows.count).to eq(count), "expected #{count} browser windows to be opened, got #{browser_windows.count}"
   end
 
-end
+  def open_windows
+    page.driver.browser.window_handles
+  end
 
+  def logged_in_session?
+    current_page.header.logged_in?
+  end
+
+  def log_out_current_session
+    current_page.header.log_out_button.click
+  end
+
+end
+World(Utilities)
 World(WebUtilities)
 World(BlinkboxWebUtilities)

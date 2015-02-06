@@ -1,7 +1,3 @@
-Given(/^I am logged in as a CSM$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
 When(/^I look up  a customer who has redeemed a voucher$/) do
   pending # express the regexp above with the code you wish you had
 end
